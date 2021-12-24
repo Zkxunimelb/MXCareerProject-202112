@@ -1,0 +1,59 @@
+Leetcode521. 最长特殊序列 Ⅰ
+class Solution:
+    def findLUSlength(self, a: str, b: str) -> int:
+        if a == b:
+            return -1
+        if a != b and len(a) == len(b):
+            return len(a)
+        if len(a) != len(b):
+            return max(len(a),len(b))
+
+Leetcode151. 翻转字符串里的单词
+class Solution:
+    def reverseWords(self, s: str) -> str:
+     return " ".join(reversed(s.split()))
+
+Leetcode153. 寻找旋转排序数组中的最小值
+class Solution:
+    def findMin(self, nums: List[int]) -> int:
+        left = 0
+        right = len(nums)-1
+        while left < right:
+            mid = (left+right)//2
+            if nums[mid] > nums[right]:
+                left = mid + 1
+            else:
+                right = mid
+        return nums[left]
+
+Leetcode118. 杨辉三角
+class Solution:
+    def generate(self, numRows: int) -> List[List[int]]:
+        res = []
+        for i in range(1,numRows+1):
+            r = []
+            if i == 1:
+                r.append(1)
+                res.append(r)
+            else:
+                for j in range(i):
+                    if j == 0 or j == i-1:
+                        r.append(1)
+                    else:
+                        r.append(res[-1][j-1]+res[-1][j])
+                res.append(r)
+        return res
+
+Leetcode12. 整数转罗马数字
+class Solution:
+    
+    thousand = ["", "M", "MM", "MMM"]
+    hundred = ["", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"]
+    ten = ["", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"]
+    one = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"]
+
+    def intToRoman(self, num: int) -> str:
+        return Solution.thousand[num // 1000] + \
+            Solution.hundred[num % 1000 // 100] + \
+            Solution.ten[num % 100 // 10] + \
+            Solution.one[num % 10]
