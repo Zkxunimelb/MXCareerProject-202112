@@ -54,4 +54,35 @@ class Solution:
             pre = pre.next
         return dummy.next
 
+Leetcode61. 旋转链表
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def rotateRight(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        if not head:
+            return None
 
+        count = 0
+        temp = head
+        while temp:
+            count += 1
+            temp = temp.next
+        k = k%count
+        
+        pre = head
+        cur = head
+        for i in range(k):
+            cur = cur.next
+        while cur.next:
+            pre = pre.next
+            cur = cur.next
+        cur.next = head
+        head = pre.next
+        pre.next = None
+        return head
+        
+Leetcode328. 奇偶链表
+Leetcode138. 复制带随机指针的链表
