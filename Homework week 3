@@ -1,1 +1,57 @@
+Leetcode203. 移除链表元素
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def removeElements(self, head: ListNode, val: int) -> ListNode:
+        dummy = ListNode()
+        dummy.next = head
+        pre, cur = dummy, head
+        while cur:
+            if cur.val == val:
+                pre.next = cur.next
+                cur = cur.next
+            else:
+                pre = cur
+                cur = cur.next
+        return dummy.next
+
+Leetcode2. 两数相加
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
+        list1 = []
+        list2 = []
+        cur1 = l1
+        cur2 = l2
+        while cur1:
+            list1.append(str(cur1.val))
+            cur1 = cur1.next
+        while cur2:
+            list2.append(str(cur2.val))
+            cur2 = cur2.next
+        res_int = int(''.join(reversed(list1))) + int(''.join(reversed(list2)))
+
+        if res_int == 0:
+            return ListNode(0)
+        res_list = []
+        while res_int:
+            rest = res_int%10
+            res_list.append(rest)
+            res_int = res_int//10
+        
+        dummy = ListNode()
+        pre = dummy
+        for i in range(len(res_list)):
+            cur = ListNode(res_list[i])
+            pre.next = cur
+            pre = pre.next
+        return dummy.next
+
 
