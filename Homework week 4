@@ -1,1 +1,23 @@
+Leetcode71. 简化路径
+class Solution:
+    def simplifyPath(self, path: str) -> str:
+        if not path:
+            return ''
+        
+        s =path.split('/')
+        stack = []
+        for word in s:
+            if word == '..':
+                if stack:
+                    stack.pop()
+            elif word and word != '.':
+                stack.append(word)
+        
+        return '/'+'/'.join(stack)
 
+Leetcode93. 复原 IP 地址
+
+Leetcode1052. 爱生气的书店老板
+Leetcode1423. 可获得的最大点数
+Leetcode725. 分隔链表
+Leetcode10. 正则表达式匹配（extra）
