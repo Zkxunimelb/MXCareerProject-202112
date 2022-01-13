@@ -44,5 +44,25 @@ class Solution:
         return sum(temp) + max(dif)
 
 Leetcode1423. 可获得的最大点数
+class Solution:
+    def maxScore(self, cardPoints: List[int], k: int) -> int:
+        if k >= len(cardPoints):
+            return sum(cardPoints)
+        
+        temp = cardPoints[len(cardPoints)-k:len(cardPoints)] + cardPoints[0:k]
+        slow = 0
+        fast = slow+k-1
+        res = [sum(temp[slow:fast+1])]
+        while fast<len(temp):
+            if slow == 0:
+                slow += 1
+                fast += 1
+                continue
+            m = res[-1] - temp[slow-1]+temp[fast]
+            res.append(m)
+            slow += 1
+            fast += 1
+        return max(res)
+
 Leetcode725. 分隔链表
 Leetcode10. 正则表达式匹配（extra）
