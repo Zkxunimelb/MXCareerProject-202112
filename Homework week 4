@@ -18,6 +18,31 @@ class Solution:
 Leetcode93. 复原 IP 地址
 
 Leetcode1052. 爱生气的书店老板
+class Solution:
+    def maxSatisfied(self, customers: List[int], grumpy: List[int], minutes: int) -> int:
+        if not customers:
+            return 0
+        if minutes >= len(customers):
+            return sum(customers)
+        
+        temp = [0]*len(customers)
+        for i in range(len(customers)):
+            if grumpy[i] == 0:
+                temp[i] = customers[i]
+            else:
+                temp[i] = 0
+        
+        dif = []
+        slow = 0
+        fast = slow + minutes-1
+        while fast < len(customers):
+            d = sum(customers[slow:fast+1]) - sum(temp[slow:fast+1])
+            dif.append(d)
+            slow += 1
+            fast += 1
+        
+        return sum(temp) + max(dif)
+
 Leetcode1423. 可获得的最大点数
 Leetcode725. 分隔链表
 Leetcode10. 正则表达式匹配（extra）
