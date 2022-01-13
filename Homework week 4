@@ -65,4 +65,31 @@ class Solution:
         return max(res)
 
 Leetcode725. 分隔链表
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def splitListToParts(self, head: ListNode, k: int) -> List[ListNode]:
+        count = 0
+        node = head
+        while node:
+            count += 1
+            node = node.next
+        size, remain = count // k, count % k
+
+        res = [None for _ in range(k)]
+        i, cur = 0, head
+        while i < k and cur:
+            res[i] = cur
+            part_size = size + (1 if i < remain else 0)
+            for _ in range(part_size - 1):
+                cur = cur.next
+            next = cur.next
+            cur.next = None
+            cur = next
+            i += 1
+        return res
+  
 Leetcode10. 正则表达式匹配（extra）
