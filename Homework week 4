@@ -16,7 +16,28 @@ class Solution:
         return '/'+'/'.join(stack)
 
 Leetcode93. 复原 IP 地址
-
+class Solution:
+    def restoreIpAddresses(self, s: str) -> List[str]:
+        self.ansLst = []
+        self.backTracking([], s)
+        self.ans = []
+        for lst in self.ansLst:
+            self.ans.append('.'.join(lst))
+        return self.ans
+    
+    def backTracking(self, lst, s):
+        if s == '':
+            if len(lst) == 4:
+                self.ansLst.append(lst)
+        elif s != '':
+            if s[0] == '0':
+                self.backTracking(lst+['0'], s[1:])
+            else:
+                for i in range(3):
+                    if (i+1) + (4 - len(lst) - 1) * 3 > len(s) - (i+1):
+                        if i < len(s) and eval(s[0:i+1]) <= 255:
+                            self.backTracking(lst + [s[0:i+1]], s[i+1:])
+  
 Leetcode1052. 爱生气的书店老板
 class Solution:
     def maxSatisfied(self, customers: List[int], grumpy: List[int], minutes: int) -> int:
