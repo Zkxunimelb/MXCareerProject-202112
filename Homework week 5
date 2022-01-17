@@ -27,6 +27,12 @@ class MyStack:
         else:
             return self.queue2[-1]
             
+    def empty(self) -> bool:
+        if not self.queue1 and not self.queue2:
+            return True
+        else:
+            return False
+            
 Leetcode678. 有效的括号字符串
 Leetcode316. 去除重复字母
 剑指 Offer 13. 机器人的运动范围
