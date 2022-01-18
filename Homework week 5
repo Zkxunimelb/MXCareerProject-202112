@@ -34,6 +34,38 @@ class MyStack:
             return False
             
 Leetcode678. 有效的括号字符串
+class Solution:
+    def checkValidString(self, s: str) -> bool:
+        if not s:
+            return True
+        
+        stack_parenthese = []
+        stack_asterisk = []
+        s_list = list(s)
+        for i in range(len(s_list)):
+            if s_list[i] == '(':
+                stack_parenthese.append(i)
+            elif s_list[i] == '*':
+                stack_asterisk.append(i)
+            elif s_list[i] == ')':
+                if stack_parenthese:
+                    stack_parenthese.pop()
+                elif stack_asterisk:
+                    stack_asterisk.pop()
+                else:
+                    return False
+        
+        if len(stack_parenthese)>len(stack_asterisk):
+            return False
+        else:
+            while stack_parenthese:
+                if stack_parenthese[-1] < stack_asterisk[-1]:
+                    stack_parenthese.pop()
+                    stack_asterisk.pop()
+                else:
+                    return False
+            return True
+            
 Leetcode316. 去除重复字母
 剑指 Offer 13. 机器人的运动范围
 Leetcode695. 岛屿的最大面积
