@@ -68,5 +68,46 @@ class Solution:
             
 Leetcode316. 去除重复字母
 剑指 Offer 13. 机器人的运动范围
+class Solution:
+    def movingCount(self, m: int, n: int, k: int) -> int:
+        def calculate(n):
+            res = 0
+            while n:
+                res += n%10
+                n = n//10
+            return res
+        
+        def find(i,j):
+            if not 0<= i < m or not 0<= j < n or calculate(i)+calculate(j)>k or [i,j] in visted:
+                return
+            visted.append([i,j])
+            for x,y in [[1,0],[-1,0],[0,1],[0,-1]]:
+                find(i+x,j+y)
+        
+        visted = []
+        find(0,0)
+        return len(visted)
+        
 Leetcode695. 岛屿的最大面积
+class Solution:
+    def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
+        if not grid:
+            return 0
+        
+        def find(i,j):
+            if not 0<=i <len(grid) or not 0<=j <len(grid[0]) or grid[i][j] == 0:
+                return 0
+            
+            s = 1
+            grid[i][j] = 0
+            return s+find(i+1,j)+find(i-1,j)+find(i,j-1)+find(i,j+1)
+        
+        res = []
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] == 1:
+                    res.append(find(i,j))
+        
+        return max(res) if res else 0
+       
 Leetcode42.接雨水（extra）
