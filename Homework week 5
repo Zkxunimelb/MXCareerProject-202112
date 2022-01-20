@@ -67,6 +67,25 @@ class Solution:
             return True
             
 Leetcode316. 去除重复字母
+class Solution:
+    def removeDuplicateLetters(self, s: str) -> str:
+        dic = {}
+        for c in s:
+            if c in dic.keys():
+                dic[c] += 1
+            else:
+                dic[c] = 1
+        
+        stack = []
+        for c in s:
+            if c not in stack:
+                while stack and c < stack[-1] and dic[stack[-1]] > 0:
+                    stack.pop()
+                stack.append(c)
+            dic[c] -= 1
+        
+        return ''.join(stack)
+
 剑指 Offer 13. 机器人的运动范围
 class Solution:
     def movingCount(self, m: int, n: int, k: int) -> int:
