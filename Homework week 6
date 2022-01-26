@@ -36,6 +36,34 @@ class Solution:
         return root
 
 Leetcode437. 路径总和 III
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def pathSum(self, root: TreeNode, targetSum: int) -> int:
+        def count(node, targetSum):
+            if node is None:
+                return 0
+
+            res = 0
+            if node.val == targetSum:
+                res += 1
+
+            res += count(node.left, targetSum - node.val)
+            res += count(node.right, targetSum - node.val)
+            return res
+        
+        if root is None:
+            return 0
+            
+        result = count(root, targetSum)
+        result += self.pathSum(root.left, targetSum)
+        result += self.pathSum(root.right, targetSum)
+        return result
+        
 Leetcode236. 二叉树的最近公共祖先
 Leetcode103. 二叉树的锯齿形层序遍历
 Leetcode (extra)124. 二叉树中的最大路径和
