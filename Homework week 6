@@ -65,5 +65,29 @@ class Solution:
         return result
         
 Leetcode236. 二叉树的最近公共祖先
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        def find(node,p,q):
+            if not node or node == p or node == q:
+                return node
+            
+            left = find(node.left,p,q)
+            right = find(node.right,p,q)
+            if left and right:
+                return node
+            if left:
+                return left
+            else:
+                return right
+        
+        return find(root,p,q)
+    
 Leetcode103. 二叉树的锯齿形层序遍历
 Leetcode (extra)124. 二叉树中的最大路径和
