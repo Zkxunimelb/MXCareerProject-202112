@@ -90,4 +90,36 @@ class Solution:
         return find(root,p,q)
     
 Leetcode103. 二叉树的锯齿形层序遍历
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def zigzagLevelOrder(self, root: TreeNode) -> List[List[int]]:
+        if not root:
+            return []
+        
+        count = 0
+        queue = [root]
+        res = []
+        while queue:
+            l = len(queue)
+            temp = []
+            for i in range(l):
+                item = queue.pop(0)
+                temp.append(item.val)
+                if item.left:
+                    queue.append(item.left)
+                if item.right:
+                    queue.append(item.right)
+            if count%2 == 0:
+                res.append(temp)
+            else:
+                temp.reverse()
+                res.append(temp)
+            count += 1
+        return res
+        
 Leetcode (extra)124. 二叉树中的最大路径和
