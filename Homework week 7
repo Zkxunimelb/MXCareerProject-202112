@@ -1,4 +1,36 @@
 99. 恢复二叉搜索树
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def recoverTree(self, root: Optional[TreeNode]) -> None:
+        """
+        Do not return anything, modify root in-place instead.
+        """
+        stack = []
+        def in_order(node):
+            if not node:
+                return
+            in_order(node.left)
+            stack.append(node)
+            in_order(node.right)
+        
+        in_order(root)
+        x = None
+        y = None
+        for i in range(len(stack)-1):
+            if stack[i].val > stack[i+1].val:
+                if not x:
+                    x = stack[i]
+                    y = stack[i+1]
+                else:
+                    y = stack[i+1]
+        if x and y:
+            x.val,y.val = y.val,x.val
+            
 199. 二叉树的右视图
 1609. 奇偶树
 538. 把二叉搜索树转换为累加树
