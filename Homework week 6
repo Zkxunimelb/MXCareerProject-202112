@@ -123,3 +123,28 @@ class Solution:
         return res
         
 Leetcode (extra)124. 二叉树中的最大路径和
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def __init__(self):
+        self.m = float('-inf')
+
+    def maxPathSum(self, root: TreeNode) -> int:
+        def find(node):
+            if not node:
+                return 0
+            
+            left = max(find(node.left),0)
+            right = max(find(node.right),0)
+
+            temp = node.val+left+right
+            if temp > self.m:
+                self.m = temp
+            
+            return node.val + max(left,right)
+        find(root)
+        return self.m
