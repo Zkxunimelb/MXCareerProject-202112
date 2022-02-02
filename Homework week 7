@@ -59,6 +59,57 @@ class Solution:
         return res
         
 1609. 奇偶树
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isEvenOddTree(self, root: Optional[TreeNode]) -> bool:
+        if not root:
+            return True
+        
+        level = 0
+        queue = [root]
+
+        while queue:
+            temp = []
+            l = len(queue)
+            for i in range(l):
+                item = queue.pop(0)
+
+                if level%2 == 0:
+                    if item.val%2 != 1:
+                        return False
+                    else:
+                        if i == 0:
+                            temp.append(item.val)
+                        else:
+                            if item.val <= temp[-1]:
+                                return False
+                            else:
+                                temp.append(item.val)
+                else:
+                    if item.val%2 == 1:
+                        return False
+                    else:
+                        if i == 0:
+                            temp.append(item.val)
+                        else:
+                            if item.val >= temp[-1]:
+                                return False
+                            else:
+                                temp.append(item.val)
+                
+                if item.left:
+                    queue.append(item.left)
+                if item.right:
+                    queue.append(item.right)
+
+            level += 1
+        return True
+        
 538. 把二叉搜索树转换为累加树
 139. 单词拆分
 (extra)987. 二叉树的垂序遍历
