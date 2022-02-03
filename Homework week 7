@@ -112,4 +112,14 @@ class Solution:
         
 538. 把二叉搜索树转换为累加树
 139. 单词拆分
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        dp = [False]*(len(s)+1)
+        dp[0] = True
+        for i in range(len(dp)-1):
+            for j in range(i+1, len(dp)):
+                if dp[i] and s[i:j] in wordDict:
+                    dp[j] = True
+        return dp[-1]
+        
 (extra)987. 二叉树的垂序遍历
