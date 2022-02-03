@@ -111,6 +111,25 @@ class Solution:
         return True
         
 538. 把二叉搜索树转换为累加树
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def convertBST(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        def count(node,res):
+            if not node:
+                return res 
+            right_result = count(node.right,res)
+            node.val += right_result
+            left_result = count(node.left,node.val)
+            return left_result
+            
+        count(root,0)
+        return root
+        
 139. 单词拆分
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
