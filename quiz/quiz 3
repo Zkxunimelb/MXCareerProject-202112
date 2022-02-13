@@ -82,6 +82,34 @@ class Solution:
 树节点的数目在 1 到 10^4 之间。
 树节点的值互不相同，且在 1 到 10^5 之间。
 
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def balanceBST(self, root: TreeNode) -> TreeNode:
+        inoder = []
+        def inorder_traverse(node):
+            if not node:
+                return
+            inorder_traverse(node.left)
+            inoder.append(node.val)
+            inorder_traverse(node.right)
+        inorder_traverse(root)
+
+        def creat(l,r):
+            if l > r:
+                return
+            mid = (r-l)//2 + l
+            root = TreeNode(inoder[mid])
+            root.left = creat(l,mid-1)
+            root.right = creat(mid+1,r)
+            return root
+        
+        return creat(0,len(inoder)-1)
+
 
 4. （extra）超级丑数
 
