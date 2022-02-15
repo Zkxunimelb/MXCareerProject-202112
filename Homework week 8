@@ -1,4 +1,19 @@
 1046. 最后一块石头的重量
+class Solution:
+    def lastStoneWeight(self, stones: List[int]) -> int:
+        heap = []
+        for val in stones:
+            heapq.heappush(heap,-val)
+        
+
+        while len(heap)>1:
+            x,y = heapq.heappop(heap), heapq.heappop(heap)
+            dif = y-x
+            if dif>0:
+                heapq.heappush(heap,-dif)
+
+        return -heap[0] if len(heap)==1 else 0
+       
 973. 最接近原点的 K 个点
 767. 重构字符串
 239. 滑动窗口最大值
