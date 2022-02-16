@@ -32,5 +32,42 @@ class Solution:
         return res
         
 767. 重构字符串
+class Solution:
+    def reorganizeString(self, s: str) -> str:
+        if len(s) < 2:
+            return s
+        
+        dic = {}
+        for word in s:
+            if word in dic.keys():
+                dic[word] += 1
+            else:
+                dic[word] = 1
+
+        maxCount = max(dic.items(), key=lambda x: x[1])[1]
+        if maxCount > (len(s) + 1) // 2:
+            return ""
+
+        heap = [(-val,key) for key,val in dic.items()]
+        heapq.heapify(heap)
+        res = ''
+
+        while len(heap) > 1:
+            val1,l1 = heapq.heappop(heap)
+            val2,l2 = heapq.heappop(heap)
+            res += l1
+            res += l2
+            dic[l1] -= 1
+            dic[l2] -= 1
+            if dic[l1]:
+                heapq.heappush(heap,(-dic[l1],l1))
+            if dic[l2]:
+                heapq.heappush(heap,(-dic[l2],l2))
+            
+        if heap:
+            res += heap[0][1]
+
+        return res
+        
 239. 滑动窗口最大值
 23. 合并K个升序链表
