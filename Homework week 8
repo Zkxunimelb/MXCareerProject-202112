@@ -70,4 +70,54 @@ class Solution:
         return res
         
 239. 滑动窗口最大值
+#单调队列
+class Solution:
+    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        if not nums:
+            return []
+        
+        queue = []
+        for i in range(k):
+            if not queue:
+                queue.append(nums[i])
+            else:
+                while queue and nums[i] > queue[-1]:
+                    queue.pop()
+                queue.append(nums[i])
+        res = [queue[0]]
+
+        left = 1
+        right = left + k -1
+        while right<len(nums):
+            if nums[left-1] == queue[0]:
+                queue.pop(0)
+            while queue and nums[right] > queue[-1]:
+                queue.pop()
+            queue.append(nums[right])
+            res.append(queue[0])
+            left += 1
+            right += 1
+        
+        return res
+
+#优先队列（堆）
+class Solution:
+    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        if not nums:
+            return []
+        
+        heap = [(-nums[i],i) for i in range(k)]
+        heapq.heapify(heap)
+        res = [-heap[0][0]]
+
+        right = k
+        while right < len(nums):
+            heapq.heappush(heap,(-nums[right],right))
+            while heap[0][1] <= right-k:
+                heapq.heappop(heap)
+            res.append(-heap[0][0])
+            right += 1
+        
+        return res
+        
 23. 合并K个升序链表
