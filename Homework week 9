@@ -1,4 +1,19 @@
 387. 字符串中的第一个唯一字符
+class Solution:
+    def firstUniqChar(self, s: str) -> int:
+        dic = {}
+        for i in range(len(s)):
+            if s[i] in dic:
+                dic[s[i]][0] += 1
+            else:
+                dic[s[i]] = [1,i]
+        
+        for key,val in dic.items():
+            if val[0] == 1:
+                return val[1]
+        
+        return -1
+        
 36. 有效的数独
 652. 寻找重复的子树
 337. 打家劫舍 III
