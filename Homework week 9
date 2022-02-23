@@ -35,5 +35,27 @@ class Solution:
         
 652. 寻找重复的子树
 337. 打家劫舍 III
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def rob(self, root: TreeNode) -> int:
+        if not root:
+            return 0
+        
+        def calculate(node):
+            if not node:
+                return 0,0
+            
+            l_select, l_unselect = calculate(node.left)
+            r_select, r_unselect = calculate(node.right)
+
+            return node.val + l_unselect + r_unselect, max(l_select,l_unselect)+max(r_select, r_unselect)
+        
+        return max(calculate(root))
+        
 123. 买卖股票的最佳时机 III
 (extra) 188. 买卖股票的最佳时机 IV
