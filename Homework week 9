@@ -34,6 +34,49 @@ class Solution:
         return True
         
 652. 寻找重复的子树
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def findDuplicateSubtrees(self, root: Optional[TreeNode]) -> List[Optional[TreeNode]]:
+        if not root:
+            return []
+        self.res = []
+        self.dic = {}
+        self.temp = []
+        
+        def preorder_traverse(node):
+            if not node:
+                self.temp.append('#')
+                return
+
+            self.temp.append(node.val)
+            preorder_traverse(node.left)
+            preorder_traverse(node.right)
+        
+        def dfs(node):
+            if not node:
+                return
+            self.temp = []
+            preorder_traverse(node)
+            if self.temp in self.dic.values():
+                for key,val in self.dic.items():
+                    if val == self.temp:
+                        result = key
+                        if result not in self.res:
+                            self.res.append(result)
+                        break
+            else:
+                self.dic[node] = self.temp
+            dfs(node.left)
+            dfs(node.right)
+        
+        dfs(root)
+        return self.res
+        
 337. 打家劫舍 III
 # Definition for a binary tree node.
 # class TreeNode:
